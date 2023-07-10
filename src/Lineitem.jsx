@@ -1,21 +1,17 @@
 import React from 'react'
 import {FaTrashAlt} from "react-icons/fa"
 
-function Lineitem({ item, handleChange, handleDelete }){
+function LineItem({ item, handleChange, handleDelete }){
   return (
-    <li className="item" key={item.id}>
+    // can remove the key attribute here since now we have that in LineItem
+    <li className="item">
         <input 
             onChange={()=>handleChange(item.id)}
             type="checkbox" 
             checked={item.checked} 
         />
-        <label
-            style={(item.checked)?{textDecoration: "line-through"}: null}
-            onDoubleClick={()=>handleChange(item.id)}
-        >{item.item}</label> &nbsp;
-        {/* <button>Delete</button> */}
+        <label style={(item.checked)?{textDecoration: "line-through"}: null}> {item.item} </label> &nbsp;
         < FaTrashAlt
-            // since this has a role button we can add onClick event
             onClick={()=>handleDelete(item.id)}
             role="button"
             tabIndex="0"
@@ -25,4 +21,4 @@ function Lineitem({ item, handleChange, handleDelete }){
   )
 }
 
-export default Lineitem
+export default LineItem
