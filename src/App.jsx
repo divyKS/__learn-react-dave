@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Header from './Header'
 import Footer from './Footer'
@@ -7,8 +7,12 @@ import Content from './Content'
 import SearchItem from './SearchItem'
 
 function App() {
-  const [items, setItems] = useState((localStorage.getItem("stateOfShoppingList"))?JSON.parse(localStorage.getItem("stateOfShoppingList")):"")
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem("stateOfShoppingList")) || [])
   const [search, setSearch] = useState("")
+
+  useEffect(()=>{
+    localStorage.setItem("stateOfShoppingList", JSON.stringify(items))
+  }, [items])
 
   function addItem(newItem){
     const newID = items.length? items[items.length - 1].id + 1 : 1;
@@ -19,7 +23,6 @@ function App() {
     }
     const newItemList = [...items,myNewItem]
     setItems(newItemList)
-    localStorage.setItem("stateOfShoppingList", JSON.stringify(newItemList))
   }
 
   function handleChange(id){
@@ -28,14 +31,12 @@ function App() {
       (item.id === id) ? {...item, checked: !item.checked} : item
     )
     setItems(listItemsUpdated)  
-    localStorage.setItem("stateOfShoppingList", JSON.stringify(listItemsUpdated))
   }
 
   function handleDelete(id){
     console.log(`Item with id ${id} is clicked to delete`)
     const listItemsAfterDeletion = items.filter((item)=> item.id !== id )
     setItems(listItemsAfterDeletion)
-    localStorage.setItem("stateOfShoppingList", JSON.stringify(listItemsAfterDeletion))
   } 
 
   const [newItem, setNewItem] = useState("");
