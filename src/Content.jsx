@@ -15,7 +15,7 @@ function Content({ items, setItems, handleChange, handleDelete }){
   // we can use another useEffect that will listen to [items] and update the local storage if the items is changed, so the updation code we can remove from our handleChange function 
 
   return (
-    <main>
+    <>
       {items.length? (
         <ItemList
           items={items}
@@ -28,7 +28,7 @@ function Content({ items, setItems, handleChange, handleDelete }){
         </p>
       )}
       
-    </main>
+    </>
   )
 }
 
